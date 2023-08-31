@@ -4,7 +4,7 @@ import {onSnapshot, collection, addDoc,deleteDoc, doc, setDoc} from "firebase/fi
 function Form(){
     const[newItem,setNewItem]=useState("")
     const[newTask, setNewTask]=useState([])
-    // console.log(newItem)
+
     useEffect(()=>{
         const sub = onSnapshot(collection(db,"collections"), (snapshot)=>{
             setNewTask(snapshot.docs.map((doc)=> ({...doc.data(), id:doc.id})))
@@ -12,7 +12,6 @@ function Form(){
         return sub
     },[])
 
-    // console.log(newTask)
     const handleSubmit = async(e)=>{
         e.preventDefault()
         const collectionRef = collection(db,"collections")
@@ -35,7 +34,7 @@ function Form(){
         <>
             <form className="form" onSubmit={handleSubmit}>
                 <h1>Write your new task</h1>
-                <input className="textbox" type="text" value={newItem} onChange={e=>setNewItem(e.target.value)}/><br></br>
+                <input className="textbox" type="text" value={newItem} onChange={e=>setNewItem(e.target.value)} placeholder="Type here! "/><br></br>
                 <button>Add</button>
             </form>
             
